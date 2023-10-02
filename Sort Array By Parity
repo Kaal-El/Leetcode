@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& nums) {
+        int prev=0,next=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[prev]%2==0)
+            {
+                prev++;
+            }
+            if(nums[next]%2!=0)
+            {
+                next++;
+            }
+            if(nums[next]%2==0 and nums[prev]%2!=0)
+            {
+                swap(nums[next],nums[prev]);
+                next+=1;
+                prev+=1;
+            }
+            
+        }
+        return nums;
+        
+    }
+};
