@@ -9,7 +9,7 @@ public:
             {
                 first=nums[i];
             }
-            else if(nums[i]<=second)
+            else if(nums[i]>first and nums[i]<=second)
             {
                 second=nums[i];
             }
