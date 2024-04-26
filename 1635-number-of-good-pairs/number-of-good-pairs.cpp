@@ -1,14 +1,22 @@
 class Solution {
 public:
     int numIdenticalPairs(vector<int>& nums) {
-        int count=0;
-        for(int i=0;i<nums.size()-1;i++)
-        {
-            for(int j=i+1;j<nums.size();j++)
-            {
-                if(nums[i]==nums[j]) count++;
+        map<int, int> frequency;
+        int count = 0;
+
+        // Count the frequency of each number
+        for (int num : nums) {
+            frequency[num]++;
+        }
+
+        // For each frequency, calculate the number of identical pairs it contributes
+        for (auto it: frequency) {
+            if (it.second > 1) {
+                // If there are n occurrences of the number, it contributes n choose 2 pairs
+                count += (it.second * (it.second - 1)) / 2;
             }
         }
+
         return count;
     }
 };
