@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int yesRec(int i, int j, string& ring, string& key, vector<vector<int>>& dp)
-    {
-        if (i >= key.size())
-            return 0;
-        
-        if (dp[i][j] != -1)
-            return dp[i][j];
-
-        int res = INT_MAX;
-        for (int k = 0; k < ring.size(); k++)
-        {
-            if (key[i] == ring[k])
-            {
-                int dist = min(abs(j - k), (int)ring.size() - abs(j - k));
-                res = min(res, 1 + dist + yesRec(i + 1, k, ring, key, dp));
-            }
-        }
-
-        return dp[i][j] = res;
+int solve(string& ring, string& key, int i, int j, vector<vector<int>>& dp) {
+    int m = ring.size();
+    int n = key.size();
+    if (i >= n) {
+        return 0;
     }
+    if (dp[i][j] != -1) {
+        return dp[i][j];
+    }
+    int ans = INT_MAX;
+    for (int k = 0; k < m; k++) {
+        if (ring[k] == key[i]) {
+            int dup = min(abs(j - k), m - abs(j - k));
+            ans = min(ans, 1 + dup + solve(ring, key, i + 1, k, dp));
+        }
+    }
+    return dp[i][j] = ans;
+}
     int findRotateSteps(string ring, string key) {
-        vector<vector<int>> dp(key.size() + 1, vector<int> (ring.size() + 1, -1));
-
-        return yesRec(0, 0, ring, key, dp);
+        vector<vector<int>> dp(key.size()+1,vector<int>(ring.size()+1,-1));
+        return solve(ring,key,0,0,dp);
+        
     }
 };
